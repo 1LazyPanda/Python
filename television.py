@@ -93,7 +93,8 @@ class Television:
         #
         # Returns:
         #     None
-        if self.__status and not self.__muted:  # Check if TV is on and not muted
+        if self.__status:  # Check if TV is on and not muted
+            self.__muted = False  # Check if volume is not at the maximum level
             if self.__volume < Television.Max_Volume:  # Check if volume is not at the maximum level
                 self.__volume += 1  # Increase the volume by 1
 
@@ -112,8 +113,7 @@ class Television:
         """
         # Check if TV is on and not muted
         if self.__status:
-            self.__muted
-            # Check if volume is not at the minimum level
+            self.__muted = False # Check if volume is not at the minimum level
             if self.__volume > Television.Min_Volume:
                 # Decrease the volume by 1
                 self.__volume -= 1
@@ -163,8 +163,22 @@ class Television:
                 self.__channel = Television.Max_Channel
 
     def __str__(self) -> str:
+        """
+        Returns a string representation of the Television object.
+
+        This method returns a string that describes the current state of the
+        Television object. If the TV is muted, the string will indicate that the
+        volume is set to the minimum level. If the TV is not muted, the string
+        will indicate the current volume level.
+
+        Returns:
+            str: A string representation of the Television object.
+        """
+        # Check if the TV is muted
         if self.__muted:
+            # If the TV is muted, return the minimum volume level
             return f"Power = {self.__status}, Channel = {self.__channel}, Volume = {Television.Min_Volume}"
         else:
+            # If the TV is not muted, return the current volume level
             return f"Power = {self.__status}, Channel = {self.__channel}, Volume = {self.__volume}"
 
